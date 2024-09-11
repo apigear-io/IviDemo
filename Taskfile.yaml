@@ -2,12 +2,14 @@ version: "3"
 tasks:
   clean-ivisol:
     cmds:
+      - rm IviSol/buildPlugins.sh IviSol/buildPlugins.bat
       - rm -rf IviSol/Plugins
   gen-ivisol:
     cmds:
       - apigear generate solution apigear/ivisol.solution.yaml
   clean-ivilab:
     cmds:
+      - rm IviLab/buildPlugins.sh IviLab/buildPlugins.bat
       - rm -rf IviLab/Plugins
   gen-ivilab:
     cmds:
