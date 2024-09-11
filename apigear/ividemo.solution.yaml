@@ -1,0 +1,7 @@
+schema: apigear.solution/1.0
+targets:
+  - name: ivi
+    output: ../IviDemo
+    inputs:
+      - ivi.tuner.idl
+    template: apigear-io/template-unreal

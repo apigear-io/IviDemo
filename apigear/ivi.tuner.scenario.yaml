@@ -1,0 +1,12 @@
+schema: apigear.scenario/1.0
+name: ivi
+version: "1.0"
+
+interfaces:
+  - name: ivi.tuner.Tuner
+    properties:
+      currentStation: {}
+    operations:
+      - name: scanStations
+        actions:
+          - $set: { currentStation: {} }

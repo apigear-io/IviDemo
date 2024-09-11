@@ -1,0 +1,14 @@
+version: "3"
+tasks:
+  clean-ivisol:
+    cmds:
+      - rm -rf IviSol/Plugins
+  gen-ivisol:
+    cmds:
+      - apigear generate solution apigear/ivisol.solution.yaml
+  clean-ivilab:
+    cmds:
+      - rm -rf IviLab/Plugins
+  gen-ivilab:
+    cmds:
+      - apigear generate solution apigear/ivilab.solution.yaml
