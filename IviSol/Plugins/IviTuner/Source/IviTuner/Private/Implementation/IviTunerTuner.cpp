@@ -77,6 +77,7 @@ void UIviTunerTuner::ScanStations_Implementation(EIviTunerWaveband Band)
 {
 	(void)Band;
 	// do business logic here
+	UE_LOG(LogIviTuner, Warning, TEXT("CPP Scan Station Called"))
 }
 
 void UIviTunerTuner::AutoScan_Implementation(EIviTunerWaveband Band)
