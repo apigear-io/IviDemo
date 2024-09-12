@@ -11,6 +11,7 @@ struct Station {
     description: string
     frequency: float
     image: string
+    waveband: Waveband
 }
 
 interface Tuner {
