@@ -84,19 +84,14 @@ void UIviTunerTuner::SetWaveband_Implementation(EIviTunerWaveband InWaveband)
 	}
 }
 
-void UIviTunerTuner::ScanStations_Implementation(EIviTunerWaveband Band)
+void UIviTunerTuner::ScanStations_Implementation()
 {
-	(void)Band;
 	InitData();
 }
 
-void UIviTunerTuner::AutoScan_Implementation(EIviTunerWaveband Band)
+void UIviTunerTuner::AutoScan_Implementation()
 {
-	(void)Band;
-	Execute_SetWaveband(this, Band);
 	Execute_SetAutoScanEnabled(this, !bAutoScanEnabled);
-
-	// do business logic here
 }
 
 void UIviTunerTuner::NextStation_Implementation()

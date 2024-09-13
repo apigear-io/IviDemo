@@ -74,7 +74,7 @@ bool UIviTunerTunerImplementationOperationScanStationsTest::RunTest(const FStrin
 {
 	// Do implement test here
 	TScriptInterface<IIviTunerTunerInterface> test = GetGameInstance()->GetSubsystem<UIviTunerTuner>();
-	test->Execute_ScanStations(test.GetObject(), EIviTunerWaveband::ITW_AM);
+	test->Execute_ScanStations(test.GetObject());
 
 	CleanUp();
 	return true;
@@ -85,7 +85,7 @@ bool UIviTunerTunerImplementationOperationAutoScanTest::RunTest(const FString& P
 {
 	// Do implement test here
 	TScriptInterface<IIviTunerTunerInterface> test = GetGameInstance()->GetSubsystem<UIviTunerTuner>();
-	test->Execute_AutoScan(test.GetObject(), EIviTunerWaveband::ITW_AM);
+	test->Execute_AutoScan(test.GetObject());
 
 	CleanUp();
 	return true;

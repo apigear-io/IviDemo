@@ -137,14 +137,12 @@ nlohmann::json IviTunerTunerOLinkSource::olinkInvoke(const std::string& methodId
 	const std::string path = Name::getMemberName(methodId);
 	if (path == "scanStations")
 	{
-		EIviTunerWaveband Band = args.at(0).get<EIviTunerWaveband>();
-		BackendService->Execute_ScanStations(BackendService.GetObject(), Band);
+		BackendService->Execute_ScanStations(BackendService.GetObject());
 		return nlohmann::json{};
 	}
 	if (path == "autoScan")
 	{
-		EIviTunerWaveband Band = args.at(0).get<EIviTunerWaveband>();
-		BackendService->Execute_AutoScan(BackendService.GetObject(), Band);
+		BackendService->Execute_AutoScan(BackendService.GetObject());
 		return nlohmann::json{};
 	}
 	if (path == "nextStation")

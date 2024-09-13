@@ -40,17 +40,15 @@ void IviTunerTunerTracer::trace_callSetWaveband(EIviTunerWaveband InWaveband)
 	Tracer::instance()->call("ivi.tuner/Tuner#_set", fields_);
 }
 
-void IviTunerTunerTracer::trace_callScanStations(EIviTunerWaveband Band)
+void IviTunerTunerTracer::trace_callScanStations()
 {
 	nlohmann::json fields_;
-	fields_["band"] = Band;
 	Tracer::instance()->call("ivi.tuner/Tuner#scanStations", fields_);
 }
 
-void IviTunerTunerTracer::trace_callAutoScan(EIviTunerWaveband Band)
+void IviTunerTunerTracer::trace_callAutoScan()
 {
 	nlohmann::json fields_;
-	fields_["band"] = Band;
 	Tracer::instance()->call("ivi.tuner/Tuner#autoScan", fields_);
 }
 
@@ -102,4 +100,28 @@ void IviTunerFavoritesTracer::trace_callClearAll()
 {
 	nlohmann::json fields_;
 	Tracer::instance()->call("ivi.tuner/Favorites#clearAll", fields_);
+}
+
+IviTunerGeneralTracer::IviTunerGeneralTracer()
+{
+}
+
+void IviTunerGeneralTracer::capture_state(UObject* Object, IIviTunerGeneralInterface* obj)
+{
+	nlohmann::json fields_;
+	fields_["autoScanInterval"] = obj->Execute_GetAutoScanInterval(Object);
+	fields_["favoritesSize"] = obj->Execute_GetFavoritesSize(Object);
+	Tracer::instance()->state("ivi.tuner/General", fields_);
+}
+void IviTunerGeneralTracer::trace_callSetAutoScanInterval(int32 InAutoScanInterval)
+{
+	nlohmann::json fields_;
+	fields_["autoScanInterval"] = InAutoScanInterval;
+	Tracer::instance()->call("ivi.tuner/General#_set", fields_);
+}
+void IviTunerGeneralTracer::trace_callSetFavoritesSize(const FIviTunerGridSize& InFavoritesSize)
+{
+	nlohmann::json fields_;
+	fields_["favoritesSize"] = InFavoritesSize;
+	Tracer::instance()->call("ivi.tuner/General#_set", fields_);
 }

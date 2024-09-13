@@ -24,6 +24,7 @@ class UGameInstance;
 class FSubsystemCollectionBase;
 class IIviTunerTunerInterface;
 class IIviTunerFavoritesInterface;
+class IIviTunerGeneralInterface;
 
 // General Log
 DECLARE_LOG_CATEGORY_EXTERN(LogFIviTunerModuleFactory, Log, All);
@@ -34,8 +35,10 @@ public:
 #if (ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION < 27)
 	static TScriptInterface<IIviTunerTunerInterface> createIIviTunerTunerInterface(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection);
 	static TScriptInterface<IIviTunerFavoritesInterface> createIIviTunerFavoritesInterface(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection);
+	static TScriptInterface<IIviTunerGeneralInterface> createIIviTunerGeneralInterface(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection);
 #else
 	static TScriptInterface<IIviTunerTunerInterface> createIIviTunerTunerInterface(FSubsystemCollectionBase& Collection);
 	static TScriptInterface<IIviTunerFavoritesInterface> createIIviTunerFavoritesInterface(FSubsystemCollectionBase& Collection);
+	static TScriptInterface<IIviTunerGeneralInterface> createIIviTunerGeneralInterface(FSubsystemCollectionBase& Collection);
 #endif
 };

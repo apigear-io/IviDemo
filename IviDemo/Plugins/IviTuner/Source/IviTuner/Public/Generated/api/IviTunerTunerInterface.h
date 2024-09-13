@@ -105,12 +105,12 @@ public:
 
 	// methods
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Tuner|Operations")
-	void ScanStations(EIviTunerWaveband Band);
-	virtual void ScanStations_Implementation(EIviTunerWaveband Band) = 0;
+	void ScanStations();
+	virtual void ScanStations_Implementation() = 0;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Tuner|Operations")
-	void AutoScan(EIviTunerWaveband Band);
-	virtual void AutoScan_Implementation(EIviTunerWaveband Band) = 0;
+	void AutoScan();
+	virtual void AutoScan_Implementation() = 0;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Tuner|Operations")
 	void NextStation();

@@ -19,8 +19,8 @@ interface Tuner {
     stations: Station[]
     autoScanEnabled: bool
     waveband: Waveband
-    scanStations(band: Waveband)
-    autoScan(band: Waveband)
+    scanStations()
+    autoScan()
     nextStation()
     previousStation()
 }    
@@ -30,4 +30,15 @@ interface Favorites {
     setStation(index: int, station: Station)
     resetStation(index: int)
     clearAll()
+}
+
+
+struct GridSize {
+    rows: int
+    columns: int
+}
+
+interface General {
+    autoScanInterval: int
+    favoritesSize: GridSize
 }

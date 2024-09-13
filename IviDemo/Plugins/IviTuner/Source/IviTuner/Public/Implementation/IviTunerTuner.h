@@ -44,9 +44,9 @@ public:
 	void SetWaveband_Implementation(EIviTunerWaveband Waveband) override;
 
 	// operations
-	void ScanStations_Implementation(EIviTunerWaveband Band) override;
+	void ScanStations_Implementation() override;
 
-	void AutoScan_Implementation(EIviTunerWaveband Band) override;
+	void AutoScan_Implementation() override;
 
 	void NextStation_Implementation() override;
 

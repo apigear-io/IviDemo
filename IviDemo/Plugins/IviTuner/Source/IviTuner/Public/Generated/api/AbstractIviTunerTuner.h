@@ -41,9 +41,9 @@ public:
 	virtual UIviTunerTunerSignals* _GetSignals_Implementation() override;
 
 	// methods
-	virtual void ScanStations_Implementation(EIviTunerWaveband Band) override PURE_VIRTUAL(UAbstractIviTunerTuner::ScanStations_Implementation, return;);
+	virtual void ScanStations_Implementation() override PURE_VIRTUAL(UAbstractIviTunerTuner::ScanStations_Implementation, return;);
 
-	virtual void AutoScan_Implementation(EIviTunerWaveband Band) override PURE_VIRTUAL(UAbstractIviTunerTuner::AutoScan_Implementation, return;);
+	virtual void AutoScan_Implementation() override PURE_VIRTUAL(UAbstractIviTunerTuner::AutoScan_Implementation, return;);
 
 	virtual void NextStation_Implementation() override PURE_VIRTUAL(UAbstractIviTunerTuner::NextStation_Implementation, return;);
 

@@ -18,28 +18,22 @@ limitations under the License.
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Generated/api/AbstractIviTunerFavorites.h"
-#include "IviTunerFavorites.generated.h"
+#include "Generated/api/AbstractIviTunerGeneral.h"
+#include "IviTunerGeneral.generated.h"
 
 UCLASS(BlueprintType)
-class IVITUNER_API UIviTunerFavorites : public UAbstractIviTunerFavorites
+class IVITUNER_API UIviTunerGeneral : public UAbstractIviTunerGeneral
 {
 	GENERATED_BODY()
 public:
-	UIviTunerFavorites();
-	virtual ~UIviTunerFavorites();
+	virtual ~UIviTunerGeneral();
 
 	// properties
-	TArray<FIviTunerStation> GetStations_Implementation() const override;
-	void SetStations_Implementation(const TArray<FIviTunerStation>& Stations) override;
+	int32 GetAutoScanInterval_Implementation() const override;
+	void SetAutoScanInterval_Implementation(int32 AutoScanInterval) override;
+
+	FIviTunerGridSize GetFavoritesSize_Implementation() const override;
+	void SetFavoritesSize_Implementation(const FIviTunerGridSize& FavoritesSize) override;
 
 	// operations
-	void SetStation_Implementation(int32 Index, const FIviTunerStation& Station) override;
-
-	void ResetStation_Implementation(int32 Index) override;
-
-	void ClearAll_Implementation() override;
-private:
-	void InitData();
-	static FIviTunerStation MakeStation(int32 Index);
 };

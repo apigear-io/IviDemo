@@ -273,7 +273,7 @@ void UIviTunerTunerOLinkClient::SetWaveband_Implementation(EIviTunerWaveband InW
 	_SentData->Waveband = InWaveband;
 }
 
-void UIviTunerTunerOLinkClient::ScanStations_Implementation(EIviTunerWaveband Band)
+void UIviTunerTunerOLinkClient::ScanStations_Implementation()
 {
 	if (!m_sink->IsReady())
 	{
@@ -283,10 +283,10 @@ void UIviTunerTunerOLinkClient::ScanStations_Implementation(EIviTunerWaveband Ba
 	}
 	ApiGear::ObjectLink::InvokeReplyFunc GetTunerStateFunc = [this](ApiGear::ObjectLink::InvokeReplyArg arg) {};
 	static const auto memberId = ApiGear::ObjectLink::Name::createMemberId(m_sink->olinkObjectName(), "scanStations");
-	m_sink->GetNode()->invokeRemote(memberId, {Band}, GetTunerStateFunc);
+	m_sink->GetNode()->invokeRemote(memberId, {}, GetTunerStateFunc);
 }
 
-void UIviTunerTunerOLinkClient::AutoScan_Implementation(EIviTunerWaveband Band)
+void UIviTunerTunerOLinkClient::AutoScan_Implementation()
 {
 	if (!m_sink->IsReady())
 	{
@@ -296,7 +296,7 @@ void UIviTunerTunerOLinkClient::AutoScan_Implementation(EIviTunerWaveband Band)
 	}
 	ApiGear::ObjectLink::InvokeReplyFunc GetTunerStateFunc = [this](ApiGear::ObjectLink::InvokeReplyArg arg) {};
 	static const auto memberId = ApiGear::ObjectLink::Name::createMemberId(m_sink->olinkObjectName(), "autoScan");
-	m_sink->GetNode()->invokeRemote(memberId, {Band}, GetTunerStateFunc);
+	m_sink->GetNode()->invokeRemote(memberId, {}, GetTunerStateFunc);
 }
 
 void UIviTunerTunerOLinkClient::NextStation_Implementation()

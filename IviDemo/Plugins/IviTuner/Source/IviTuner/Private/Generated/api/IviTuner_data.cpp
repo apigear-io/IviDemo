@@ -67,6 +67,33 @@ FString FIviTunerStation::ToJSON(bool bPrettyPrint) const
 	return JSONString;
 }
 
+bool FIviTunerGridSize::operator==(const FIviTunerGridSize& rhs) const
+{
+	return (rows == rhs.rows) && (columns == rhs.columns);
+}
+
+bool FIviTunerGridSize::operator!=(const FIviTunerGridSize& rhs) const
+{
+	return !operator==(rhs);
+}
+
+FIviTunerGridSize::operator FString() const
+{
+	return ToString();
+}
+
+FString FIviTunerGridSize::ToString() const
+{
+	return ToJSON(true);
+}
+
+FString FIviTunerGridSize::ToJSON(bool bPrettyPrint) const
+{
+	FString JSONString;
+	FJsonObjectConverter::UStructToJsonObjectString(*this, JSONString, 0, 0, 0, nullptr, bPrettyPrint);
+	return JSONString;
+}
+
 /* Returns true if IviTunerStation A is equal to IviTunerStation B (A == B) */
 bool UIviTunerLibrary::EqualEqual_IviTunerStationIviTunerStation(FIviTunerStation A, FIviTunerStation B)
 {
@@ -87,4 +114,26 @@ FString UIviTunerLibrary::Conv_IviTunerStationToString(const FIviTunerStation& I
 FString UIviTunerLibrary::Conv_IviTunerStationToJSON(const FIviTunerStation& InIviTunerStation)
 {
 	return InIviTunerStation.ToJSON();
+}
+
+/* Returns true if IviTunerGridSize A is equal to IviTunerGridSize B (A == B) */
+bool UIviTunerLibrary::EqualEqual_IviTunerGridSizeIviTunerGridSize(FIviTunerGridSize A, FIviTunerGridSize B)
+{
+	return A == B;
+}
+
+/* Returns true if IviTunerGridSize A is not equal to IviTunerGridSize B (A != B) */
+bool UIviTunerLibrary::NotEqual_IviTunerGridSizeIviTunerGridSize(FIviTunerGridSize A, FIviTunerGridSize B)
+{
+	return A != B;
+}
+
+FString UIviTunerLibrary::Conv_IviTunerGridSizeToString(const FIviTunerGridSize& InIviTunerGridSize)
+{
+	return InIviTunerGridSize.ToString();
+}
+
+FString UIviTunerLibrary::Conv_IviTunerGridSizeToJSON(const FIviTunerGridSize& InIviTunerGridSize)
+{
+	return InIviTunerGridSize.ToJSON();
 }

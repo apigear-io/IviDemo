@@ -16,7 +16,7 @@ limitations under the License.
 */
 #pragma once
 
-#include "AbstractIviTunerTuner.h"
+#include "AbstractIviTunerGeneral.h"
 THIRD_PARTY_INCLUDES_START
 #include "olink/clientnode.h"
 THIRD_PARTY_INCLUDES_END
@@ -29,63 +29,50 @@ THIRD_PARTY_INCLUDES_END
 #else
 #include "Templates/PimplPtr.h"
 #endif
-#include "IviTunerTunerOLinkClient.generated.h"
+#include "IviTunerGeneralOLinkClient.generated.h"
 
-struct IviTunerTunerPropertiesData;
-DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerTunerOLinkClient, Log, All);
+struct IviTunerGeneralPropertiesData;
+DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerGeneralOLinkClient, Log, All);
 
 UCLASS(NotBlueprintable, BlueprintType)
-class IVITUNER_API UIviTunerTunerOLinkClient : public UAbstractIviTunerTuner
+class IVITUNER_API UIviTunerGeneralOLinkClient : public UAbstractIviTunerGeneral
 {
 	GENERATED_BODY()
 public:
-	explicit UIviTunerTunerOLinkClient();
+	explicit UIviTunerGeneralOLinkClient();
 
-	// only needed in 4.25 to use TUniquePtr<IviTunerTunerPropertiesData>
-	UIviTunerTunerOLinkClient(FVTableHelper& Helper);
-	virtual ~UIviTunerTunerOLinkClient();
+	// only needed in 4.25 to use TUniquePtr<IviTunerGeneralPropertiesData>
+	UIviTunerGeneralOLinkClient(FVTableHelper& Helper);
+	virtual ~UIviTunerGeneralOLinkClient();
 
 	// subsystem
 	void Initialize(FSubsystemCollectionBase& Collection) override;
 	void Deinitialize() override;
 
 	// properties
-	FIviTunerStation GetCurrentStation_Implementation() const override;
-	void SetCurrentStation_Implementation(const FIviTunerStation& CurrentStation) override;
+	int32 GetAutoScanInterval_Implementation() const override;
+	void SetAutoScanInterval_Implementation(int32 AutoScanInterval) override;
 
-	TArray<FIviTunerStation> GetStations_Implementation() const override;
-	void SetStations_Implementation(const TArray<FIviTunerStation>& Stations) override;
-
-	bool GetAutoScanEnabled_Implementation() const override;
-	void SetAutoScanEnabled_Implementation(bool bAutoScanEnabled) override;
-
-	EIviTunerWaveband GetWaveband_Implementation() const override;
-	void SetWaveband_Implementation(EIviTunerWaveband Waveband) override;
+	FIviTunerGridSize GetFavoritesSize_Implementation() const override;
+	void SetFavoritesSize_Implementation(const FIviTunerGridSize& FavoritesSize) override;
 
 	// operations
-	void ScanStations_Implementation() override;
 
-	void AutoScan_Implementation() override;
-
-	void NextStation_Implementation() override;
-
-	void PreviousStation_Implementation() override;
-
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Tuner")
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General")
 	void UseConnection(TScriptInterface<class IApiGearConnection> InConnection);
 
 	/**
 	 * Used when the interface client changes subscription status:
 	 * either is linked(ready to use) with server side (true) or it is in unlinked state (false).
 	 */
-	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|Tuner|Remote", DisplayName = "Subscription Status Changed")
+	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|General|Remote", DisplayName = "Subscription Status Changed")
 	FApiGearRemoteApiSubscriptionStatusChangedDelegate _SubscriptionStatusChanged;
 
 	/**
 	 * Informs about the subscription state of the interface client.
 	 * @return true if the client is subscribed (plugged in the network) and ready to send and receive messages or false if the server cannot be reached.
 	 */
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Tuner|Remote")
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General|Remote")
 	bool _IsSubscribed() const;
 
 private:
@@ -95,9 +82,9 @@ private:
 
 	// member variable to store the last sent data
 #if (ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION < 27)
-	TUniquePtr<IviTunerTunerPropertiesData> _SentData;
+	TUniquePtr<IviTunerGeneralPropertiesData> _SentData;
 #else
-	TPimplPtr<IviTunerTunerPropertiesData> _SentData;
+	TPimplPtr<IviTunerGeneralPropertiesData> _SentData;
 #endif
 	TScriptInterface<class IApiGearConnection> Connection;
 };

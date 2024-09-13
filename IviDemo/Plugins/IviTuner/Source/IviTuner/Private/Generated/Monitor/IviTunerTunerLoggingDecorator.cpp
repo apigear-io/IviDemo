@@ -148,16 +148,16 @@ void UIviTunerTunerLoggingDecorator::SetWaveband_Implementation(EIviTunerWaveban
 	BackendService->Execute_SetWaveband(BackendService.GetObject(), InWaveband);
 }
 
-void UIviTunerTunerLoggingDecorator::ScanStations_Implementation(EIviTunerWaveband Band)
+void UIviTunerTunerLoggingDecorator::ScanStations_Implementation()
 {
-	IviTunerTunerTracer::trace_callScanStations(Band);
-	BackendService->Execute_ScanStations(BackendService.GetObject(), Band);
+	IviTunerTunerTracer::trace_callScanStations();
+	BackendService->Execute_ScanStations(BackendService.GetObject());
 }
 
-void UIviTunerTunerLoggingDecorator::AutoScan_Implementation(EIviTunerWaveband Band)
+void UIviTunerTunerLoggingDecorator::AutoScan_Implementation()
 {
-	IviTunerTunerTracer::trace_callAutoScan(Band);
-	BackendService->Execute_AutoScan(BackendService.GetObject(), Band);
+	IviTunerTunerTracer::trace_callAutoScan();
+	BackendService->Execute_AutoScan(BackendService.GetObject());
 }
 
 void UIviTunerTunerLoggingDecorator::NextStation_Implementation()

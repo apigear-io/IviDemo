@@ -85,6 +85,46 @@ struct IVITUNER_API FIviTunerStation : public FTableRowBase
 };
 
 /**
+ * Struct FIviTunerGridSize
+ */
+USTRUCT(BlueprintType)
+struct IVITUNER_API FIviTunerGridSize : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ApiGear|IviTuner")
+	int32 rows{0};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ApiGear|IviTuner")
+	int32 columns{0};
+
+	/**
+	 * FIviTunerGridSize to JSON formatted FString
+	 * @param bPrettyPrint Specify whether to use pretty print (e.g., with line endings) or condensed print.
+	 * 
+	 * @return JSON formatted FString
+	 */
+	FString ToJSON(bool bPrettyPrint = false) const;
+
+	/** 
+	 * FIviTunerGridSize to FString
+	 * WARNING: Do not rely on the format of the string, it may change in the future
+	 */
+	FString ToString() const;
+
+	/**
+	 * FIviTunerGridSize to FString
+	 * WARNING: Do not rely on the format of the string, it may change in the future
+	 * 
+	 * @return FString 
+	 */
+	explicit operator FString() const;
+
+	bool operator==(const FIviTunerGridSize& rhs) const;
+	bool operator!=(const FIviTunerGridSize& rhs) const;
+};
+
+/**
  * @brief BP Function library for data types
  */
 UCLASS(meta = (BlueprintThreadSafe))
@@ -112,4 +152,20 @@ public:
 	/** Converts a IviTunerStation to a string. WARNING: Do not rely on the format of the string, it may change in the future */
 	UFUNCTION(BlueprintPure, meta = (DisplayName = "To String (IviTunerStation)", CompactNodeTitle = "->", BlueprintAutocast), Category = "Utilities|String")
 	static FString Conv_IviTunerStationToString(const FIviTunerStation& InIviTunerStation);
+
+	/* Returns true if IviTunerGridSize A is equal to IviTunerGridSize B (A == B) */
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "Equal (IviTunerGridSize)", CompactNodeTitle = "==", Keywords = "== equal"), Category = "ApiGear|IviTuner")
+	static bool EqualEqual_IviTunerGridSizeIviTunerGridSize(FIviTunerGridSize A, FIviTunerGridSize B);
+
+	/* Returns true if IviTunerGridSize A is not equal to IviTunerGridSize B (A != B) */
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "Not Equal (IviTunerGridSize)", CompactNodeTitle = "!=", Keywords = "!= not equal"), Category = "ApiGear|IviTuner")
+	static bool NotEqual_IviTunerGridSizeIviTunerGridSize(FIviTunerGridSize A, FIviTunerGridSize B);
+
+	/** Converts a IviTunerGridSize to a JSON formatted FString */
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "To JSON (IviTunerGridSize)", CompactNodeTitle = "->"), Category = "Utilities|String")
+	static FString Conv_IviTunerGridSizeToJSON(const FIviTunerGridSize& InIviTunerGridSize);
+
+	/** Converts a IviTunerGridSize to a string. WARNING: Do not rely on the format of the string, it may change in the future */
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "To String (IviTunerGridSize)", CompactNodeTitle = "->", BlueprintAutocast), Category = "Utilities|String")
+	static FString Conv_IviTunerGridSizeToString(const FIviTunerGridSize& InIviTunerGridSize);
 };

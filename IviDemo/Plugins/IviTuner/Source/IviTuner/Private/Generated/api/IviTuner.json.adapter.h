@@ -16,3 +16,14 @@ static void to_json(nlohmann::json& j, const FIviTunerStation& p)
 {
 	j = nlohmann::json{{"id", p.id}, {"name", p.name}, {"description", p.description}, {"frequency", p.frequency}, {"image", p.image}, {"waveband", p.waveband}};
 }
+
+static void from_json(const nlohmann::json& j, FIviTunerGridSize& p)
+{
+	p.rows = j.at("rows").get<int32>();
+	p.columns = j.at("columns").get<int32>();
+}
+
+static void to_json(nlohmann::json& j, const FIviTunerGridSize& p)
+{
+	j = nlohmann::json{{"rows", p.rows}, {"columns", p.columns}};
+}
