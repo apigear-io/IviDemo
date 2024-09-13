@@ -15,17 +15,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include "Implementation/IviTunerGeneral.h"
+#include "Implementation/IviTunerPreferences.h"
 #include "IviTunerTestBase.h"
 #include "Misc/AutomationTest.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
-IMPLEMENT_CUSTOM_SIMPLE_AUTOMATION_TEST(UIviTunerGeneralImplementationPropertyAutoScanIntervalTest, FIviTunerTestBase, "IviTuner.General.Implementation.Property.AutoScanInterval", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
-bool UIviTunerGeneralImplementationPropertyAutoScanIntervalTest::RunTest(const FString& Parameters)
+IMPLEMENT_CUSTOM_SIMPLE_AUTOMATION_TEST(UIviTunerPreferencesImplementationPropertyAutoScanIntervalTest, FIviTunerTestBase, "IviTuner.Preferences.Implementation.Property.AutoScanInterval", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+bool UIviTunerPreferencesImplementationPropertyAutoScanIntervalTest::RunTest(const FString& Parameters)
 {
 	// Do implement test here
-	TScriptInterface<IIviTunerGeneralInterface> test = GetGameInstance()->GetSubsystem<UIviTunerGeneral>();
+	TScriptInterface<IIviTunerPreferencesInterface> test = GetGameInstance()->GetSubsystem<UIviTunerPreferences>();
 	test->Execute_SetAutoScanInterval(test.GetObject(), 0);
 	TestEqual(TEXT("Getter should return the same value as set by the setter"), test->Execute_GetAutoScanInterval(test.GetObject()), 0);
 
@@ -33,11 +33,11 @@ bool UIviTunerGeneralImplementationPropertyAutoScanIntervalTest::RunTest(const F
 	return true;
 }
 
-IMPLEMENT_CUSTOM_SIMPLE_AUTOMATION_TEST(UIviTunerGeneralImplementationPropertyFavoritesSizeTest, FIviTunerTestBase, "IviTuner.General.Implementation.Property.FavoritesSize", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
-bool UIviTunerGeneralImplementationPropertyFavoritesSizeTest::RunTest(const FString& Parameters)
+IMPLEMENT_CUSTOM_SIMPLE_AUTOMATION_TEST(UIviTunerPreferencesImplementationPropertyFavoritesSizeTest, FIviTunerTestBase, "IviTuner.Preferences.Implementation.Property.FavoritesSize", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+bool UIviTunerPreferencesImplementationPropertyFavoritesSizeTest::RunTest(const FString& Parameters)
 {
 	// Do implement test here
-	TScriptInterface<IIviTunerGeneralInterface> test = GetGameInstance()->GetSubsystem<UIviTunerGeneral>();
+	TScriptInterface<IIviTunerPreferencesInterface> test = GetGameInstance()->GetSubsystem<UIviTunerPreferences>();
 	test->Execute_SetFavoritesSize(test.GetObject(), FIviTunerGridSize());
 	TestEqual(TEXT("Getter should return the same value as set by the setter"), test->Execute_GetFavoritesSize(test.GetObject()), FIviTunerGridSize());
 

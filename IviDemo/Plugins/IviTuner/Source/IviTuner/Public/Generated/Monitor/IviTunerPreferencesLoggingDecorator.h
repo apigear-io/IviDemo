@@ -19,23 +19,23 @@ limitations under the License.
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "AbstractIviTunerGeneral.h"
-#include "IviTunerGeneralLoggingDecorator.generated.h"
+#include "AbstractIviTunerPreferences.h"
+#include "IviTunerPreferencesLoggingDecorator.generated.h"
 
 // General Log
-DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerGeneralLoggingDecorator, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerPreferencesLoggingDecorator, Log, All);
 
 UCLASS(NotBlueprintable, BlueprintType)
-class IVITUNER_API UIviTunerGeneralLoggingDecorator : public UAbstractIviTunerGeneral
+class IVITUNER_API UIviTunerPreferencesLoggingDecorator : public UAbstractIviTunerPreferences
 {
 	GENERATED_BODY()
 
 public:
-	explicit UIviTunerGeneralLoggingDecorator();
-	virtual ~UIviTunerGeneralLoggingDecorator();
+	explicit UIviTunerPreferencesLoggingDecorator();
+	virtual ~UIviTunerPreferencesLoggingDecorator();
 
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General")
-	void setBackendService(TScriptInterface<IIviTunerGeneralInterface> InService);
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Preferences")
+	void setBackendService(TScriptInterface<IIviTunerPreferencesInterface> InService);
 
 	// subsystem
 	void Initialize(FSubsystemCollectionBase& Collection) override;
@@ -53,14 +53,14 @@ public:
 	// operations
 private:
 	/** The connection to the service backend. */
-	UPROPERTY(VisibleAnywhere, Category = "ApiGear|IviTuner|General")
-	TScriptInterface<IIviTunerGeneralInterface> BackendService;
+	UPROPERTY(VisibleAnywhere, Category = "ApiGear|IviTuner|Preferences")
+	TScriptInterface<IIviTunerPreferencesInterface> BackendService;
 
 	// signals
 
-	UFUNCTION(Category = "ApiGear|IviTuner|General", BlueprintInternalUseOnly)
+	UFUNCTION(Category = "ApiGear|IviTuner|Preferences", BlueprintInternalUseOnly)
 	void OnAutoScanIntervalChanged(int32 InAutoScanInterval);
 
-	UFUNCTION(Category = "ApiGear|IviTuner|General", BlueprintInternalUseOnly)
+	UFUNCTION(Category = "ApiGear|IviTuner|Preferences", BlueprintInternalUseOnly)
 	void OnFavoritesSizeChanged(const FIviTunerGridSize& InFavoritesSize);
 };

@@ -20,7 +20,7 @@ limitations under the License.
 // DO NOT MODIFY
 ///////////////////////////////
 
-#include "Generated/OLink/IviTunerGeneralOLinkClient.h"
+#include "Generated/OLink/IviTunerPreferencesOLinkClient.h"
 #include "ApiGearSettings.h"
 #include "apigearolink.h"
 #include "Async/Async.h"
@@ -41,32 +41,32 @@ THIRD_PARTY_INCLUDES_END
 /**
    \brief data structure to hold the last sent property values
 */
-struct IviTunerGeneralPropertiesData
+struct IviTunerPreferencesPropertiesData
 {
 	std::atomic<int32> AutoScanInterval{0};
 	FCriticalSection FavoritesSizeMutex;
 	FIviTunerGridSize FavoritesSize{FIviTunerGridSize()};
 };
-DEFINE_LOG_CATEGORY(LogIviTunerGeneralOLinkClient);
+DEFINE_LOG_CATEGORY(LogIviTunerPreferencesOLinkClient);
 
-UIviTunerGeneralOLinkClient::UIviTunerGeneralOLinkClient()
-	: UAbstractIviTunerGeneral()
+UIviTunerPreferencesOLinkClient::UIviTunerPreferencesOLinkClient()
+	: UAbstractIviTunerPreferences()
 #if (ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION < 27)
-	, _SentData(MakeUnique<IviTunerGeneralPropertiesData>())
+	, _SentData(MakeUnique<IviTunerPreferencesPropertiesData>())
 #else
-	, _SentData(MakePimpl<IviTunerGeneralPropertiesData>())
+	, _SentData(MakePimpl<IviTunerPreferencesPropertiesData>())
 #endif
 {
-	m_sink = std::make_shared<FUnrealOLinkSink>("ivi.tuner.General");
+	m_sink = std::make_shared<FUnrealOLinkSink>("ivi.tuner.Preferences");
 }
 
-UIviTunerGeneralOLinkClient::UIviTunerGeneralOLinkClient(FVTableHelper& Helper)
+UIviTunerPreferencesOLinkClient::UIviTunerPreferencesOLinkClient(FVTableHelper& Helper)
 	: Super(Helper)
 {
 }
-UIviTunerGeneralOLinkClient::~UIviTunerGeneralOLinkClient() = default;
+UIviTunerPreferencesOLinkClient::~UIviTunerPreferencesOLinkClient() = default;
 
-void UIviTunerGeneralOLinkClient::Initialize(FSubsystemCollectionBase& Collection)
+void UIviTunerPreferencesOLinkClient::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
@@ -96,14 +96,14 @@ void UIviTunerGeneralOLinkClient::Initialize(FSubsystemCollectionBase& Collectio
 
 	if (!OLinkConnection.GetInterface())
 	{
-		UE_LOG(LogIviTunerGeneralOLinkClient, Warning, TEXT("No valid olink connection for the %s client, please set in the ApiGear IviTuner plugin settings or during run time"), UTF8_TO_TCHAR(m_sink->olinkObjectName().c_str()));
+		UE_LOG(LogIviTunerPreferencesOLinkClient, Warning, TEXT("No valid olink connection for the %s client, please set in the ApiGear IviTuner plugin settings or during run time"), UTF8_TO_TCHAR(m_sink->olinkObjectName().c_str()));
 		return;
 	}
 	UseConnection(OLinkConnection);
 	OLinkConnection->Connect();
 }
 
-void UIviTunerGeneralOLinkClient::Deinitialize()
+void UIviTunerPreferencesOLinkClient::Deinitialize()
 {
 	// tell the sink that we are gone and should not try to be invoked
 	m_sink->resetOnPropertyChangedCallback();
@@ -121,7 +121,7 @@ void UIviTunerGeneralOLinkClient::Deinitialize()
 	Super::Deinitialize();
 }
 
-void UIviTunerGeneralOLinkClient::UseConnection(TScriptInterface<IApiGearConnection> InConnection)
+void UIviTunerPreferencesOLinkClient::UseConnection(TScriptInterface<IApiGearConnection> InConnection)
 {
 	checkf(InConnection.GetInterface() != nullptr, TEXT("Cannot use connection - interface IApiGearConnection is not fully implemented"));
 
@@ -146,16 +146,16 @@ void UIviTunerGeneralOLinkClient::UseConnection(TScriptInterface<IApiGearConnect
 	Connection = InConnection;
 }
 
-int32 UIviTunerGeneralOLinkClient::GetAutoScanInterval_Implementation() const
+int32 UIviTunerPreferencesOLinkClient::GetAutoScanInterval_Implementation() const
 {
 	return AutoScanInterval;
 }
 
-void UIviTunerGeneralOLinkClient::SetAutoScanInterval_Implementation(int32 InAutoScanInterval)
+void UIviTunerPreferencesOLinkClient::SetAutoScanInterval_Implementation(int32 InAutoScanInterval)
 {
 	if (!m_sink->IsReady())
 	{
-		UE_LOG(LogIviTunerGeneralOLinkClient, Warning, TEXT("%s has no node"), UTF8_TO_TCHAR(m_sink->olinkObjectName().c_str()));
+		UE_LOG(LogIviTunerPreferencesOLinkClient, Warning, TEXT("%s has no node"), UTF8_TO_TCHAR(m_sink->olinkObjectName().c_str()));
 		return;
 	}
 
@@ -175,16 +175,16 @@ void UIviTunerGeneralOLinkClient::SetAutoScanInterval_Implementation(int32 InAut
 	_SentData->AutoScanInterval = InAutoScanInterval;
 }
 
-FIviTunerGridSize UIviTunerGeneralOLinkClient::GetFavoritesSize_Implementation() const
+FIviTunerGridSize UIviTunerPreferencesOLinkClient::GetFavoritesSize_Implementation() const
 {
 	return FavoritesSize;
 }
 
-void UIviTunerGeneralOLinkClient::SetFavoritesSize_Implementation(const FIviTunerGridSize& InFavoritesSize)
+void UIviTunerPreferencesOLinkClient::SetFavoritesSize_Implementation(const FIviTunerGridSize& InFavoritesSize)
 {
 	if (!m_sink->IsReady())
 	{
-		UE_LOG(LogIviTunerGeneralOLinkClient, Warning, TEXT("%s has no node"), UTF8_TO_TCHAR(m_sink->olinkObjectName().c_str()));
+		UE_LOG(LogIviTunerPreferencesOLinkClient, Warning, TEXT("%s has no node"), UTF8_TO_TCHAR(m_sink->olinkObjectName().c_str()));
 		return;
 	}
 
@@ -208,12 +208,12 @@ void UIviTunerGeneralOLinkClient::SetFavoritesSize_Implementation(const FIviTune
 	_SentData->FavoritesSize = InFavoritesSize;
 }
 
-bool UIviTunerGeneralOLinkClient::_IsSubscribed() const
+bool UIviTunerPreferencesOLinkClient::_IsSubscribed() const
 {
 	return m_sink->IsReady();
 }
 
-void UIviTunerGeneralOLinkClient::applyState(const nlohmann::json& fields)
+void UIviTunerPreferencesOLinkClient::applyState(const nlohmann::json& fields)
 {
 	const bool bAutoScanIntervalChanged = fields.contains("autoScanInterval") && (AutoScanInterval != fields["autoScanInterval"].get<int32>());
 	if (bAutoScanIntervalChanged)
@@ -230,6 +230,6 @@ void UIviTunerGeneralOLinkClient::applyState(const nlohmann::json& fields)
 	}
 }
 
-void UIviTunerGeneralOLinkClient::emitSignal(const std::string& signalName, const nlohmann::json& args)
+void UIviTunerPreferencesOLinkClient::emitSignal(const std::string& signalName, const nlohmann::json& args)
 {
 }

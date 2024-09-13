@@ -16,23 +16,23 @@ limitations under the License.
 */
 #pragma once
 
-#include "IviTunerGeneralInterface.h"
+#include "IviTunerPreferencesInterface.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 THIRD_PARTY_INCLUDES_START
 #include "olink/iobjectsource.h"
 THIRD_PARTY_INCLUDES_END
 #include "UnrealOLinkHost.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerGeneralOLinkSource, Log, All);
-/// @brief handles OLink network interactions specific to IIviTunerGeneralInterface
-class IviTunerGeneralOLinkSource : public ApiGear::ObjectLink::IObjectSource
+DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerPreferencesOLinkSource, Log, All);
+/// @brief handles OLink network interactions specific to IIviTunerPreferencesInterface
+class IviTunerPreferencesOLinkSource : public ApiGear::ObjectLink::IObjectSource
 {
 public:
-	explicit IviTunerGeneralOLinkSource();
-	virtual ~IviTunerGeneralOLinkSource() = default;
+	explicit IviTunerPreferencesOLinkSource();
+	virtual ~IviTunerPreferencesOLinkSource() = default;
 
 	/** set the backend service which logic is to be used */
-	void setBackendService(TScriptInterface<IIviTunerGeneralInterface> InService);
+	void setBackendService(TScriptInterface<IIviTunerPreferencesInterface> InService);
 
 	/** set the OLink host to be used */
 	void setOLinkHost(TSoftObjectPtr<UUnrealOLinkHost> InHost);
@@ -57,7 +57,7 @@ public:
 
 private:
 	/** Holds the service backend, can be exchanged with different implementation during runtime */
-	TScriptInterface<IIviTunerGeneralInterface> BackendService;
+	TScriptInterface<IIviTunerPreferencesInterface> BackendService;
 
 	/** The host holding the connections and the registry */
 	TSoftObjectPtr<UUnrealOLinkHost> Host;

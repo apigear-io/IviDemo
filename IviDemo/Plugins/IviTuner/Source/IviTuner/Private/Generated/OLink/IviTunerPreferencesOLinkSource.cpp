@@ -20,7 +20,7 @@ limitations under the License.
 // DO NOT MODIFY
 ///////////////////////////////
 
-#include "IviTunerGeneralOLinkSource.h"
+#include "IviTunerPreferencesOLinkSource.h"
 #include "Async/Future.h"
 #include "Async/Async.h"
 #include "Generated/api/IviTuner.json.adapter.h"
@@ -36,27 +36,27 @@ using namespace ApiGear::ObjectLink;
 
 namespace
 {
-static const std::string IviTunerGeneralIdentifier{"ivi.tuner.General"};
+static const std::string IviTunerPreferencesIdentifier{"ivi.tuner.Preferences"};
 }
 
-DEFINE_LOG_CATEGORY(LogIviTunerGeneralOLinkSource);
-IviTunerGeneralOLinkSource::IviTunerGeneralOLinkSource()
+DEFINE_LOG_CATEGORY(LogIviTunerPreferencesOLinkSource);
+IviTunerPreferencesOLinkSource::IviTunerPreferencesOLinkSource()
 	: Host(nullptr)
 {
 }
 
-void IviTunerGeneralOLinkSource::setBackendService(TScriptInterface<IIviTunerGeneralInterface> InService)
+void IviTunerPreferencesOLinkSource::setBackendService(TScriptInterface<IIviTunerPreferencesInterface> InService)
 {
 	// only set if interface is implemented
 	if (InService.GetInterface() == nullptr)
 	{
-		UE_LOG(LogIviTunerGeneralOLinkSource, Error, TEXT("Cannot set backend service to %s - interface IviTunerGeneral is not fully implemented"), *InService.GetObject()->GetName());
+		UE_LOG(LogIviTunerPreferencesOLinkSource, Error, TEXT("Cannot set backend service to %s - interface IviTunerPreferences is not fully implemented"), *InService.GetObject()->GetName());
 		return;
 	}
 
 	BackendService = InService;
 }
-void IviTunerGeneralOLinkSource::OnAutoScanIntervalChanged(int32 InAutoScanInterval)
+void IviTunerPreferencesOLinkSource::OnAutoScanIntervalChanged(int32 InAutoScanInterval)
 {
 	static const auto& propertyId = ApiGear::ObjectLink::Name::createMemberId(olinkObjectName(), "autoScanInterval");
 	static const auto& objectId = ApiGear::ObjectLink::Name::getObjectId(propertyId);
@@ -70,7 +70,7 @@ void IviTunerGeneralOLinkSource::OnAutoScanIntervalChanged(int32 InAutoScanInter
 	}
 }
 
-void IviTunerGeneralOLinkSource::OnFavoritesSizeChanged(const FIviTunerGridSize& InFavoritesSize)
+void IviTunerPreferencesOLinkSource::OnFavoritesSizeChanged(const FIviTunerGridSize& InFavoritesSize)
 {
 	static const auto& propertyId = ApiGear::ObjectLink::Name::createMemberId(olinkObjectName(), "favoritesSize");
 	static const auto& objectId = ApiGear::ObjectLink::Name::getObjectId(propertyId);
@@ -84,7 +84,7 @@ void IviTunerGeneralOLinkSource::OnFavoritesSizeChanged(const FIviTunerGridSize&
 	}
 }
 
-void IviTunerGeneralOLinkSource::setOLinkHost(TSoftObjectPtr<UUnrealOLinkHost> InHost)
+void IviTunerPreferencesOLinkSource::setOLinkHost(TSoftObjectPtr<UUnrealOLinkHost> InHost)
 {
 	Host = InHost.Get();
 }
@@ -93,16 +93,16 @@ void IviTunerGeneralOLinkSource::setOLinkHost(TSoftObjectPtr<UUnrealOLinkHost> I
 // IObjectSource interface
 //
 
-std::string IviTunerGeneralOLinkSource::olinkObjectName()
+std::string IviTunerPreferencesOLinkSource::olinkObjectName()
 {
-	return IviTunerGeneralIdentifier;
+	return IviTunerPreferencesIdentifier;
 }
 
-nlohmann::json IviTunerGeneralOLinkSource::olinkInvoke(const std::string& methodId, const nlohmann::json& args)
+nlohmann::json IviTunerPreferencesOLinkSource::olinkInvoke(const std::string& methodId, const nlohmann::json& args)
 {
 	if (!BackendService)
 	{
-		UE_LOG(LogIviTunerGeneralOLinkSource, Error, TEXT("No backend service set - please specify a service in the adapter IviTunerGeneralOLinkAdapter which implements the IviTunerGeneral interface"));
+		UE_LOG(LogIviTunerPreferencesOLinkSource, Error, TEXT("No backend service set - please specify a service in the adapter IviTunerPreferencesOLinkAdapter which implements the IviTunerPreferences interface"));
 		return nlohmann::json();
 	}
 
@@ -110,11 +110,11 @@ nlohmann::json IviTunerGeneralOLinkSource::olinkInvoke(const std::string& method
 	return nlohmann::json();
 }
 
-void IviTunerGeneralOLinkSource::olinkSetProperty(const std::string& propertyId, const nlohmann::json& value)
+void IviTunerPreferencesOLinkSource::olinkSetProperty(const std::string& propertyId, const nlohmann::json& value)
 {
 	if (!BackendService)
 	{
-		UE_LOG(LogIviTunerGeneralOLinkSource, Error, TEXT("No backend service set - please specify a service in the adapter IviTunerGeneralOLinkAdapter which implements the IviTunerGeneral interface"));
+		UE_LOG(LogIviTunerPreferencesOLinkSource, Error, TEXT("No backend service set - please specify a service in the adapter IviTunerPreferencesOLinkAdapter which implements the IviTunerPreferences interface"));
 		return;
 	}
 
@@ -131,11 +131,11 @@ void IviTunerGeneralOLinkSource::olinkSetProperty(const std::string& propertyId,
 	}
 }
 
-nlohmann::json IviTunerGeneralOLinkSource::olinkCollectProperties()
+nlohmann::json IviTunerPreferencesOLinkSource::olinkCollectProperties()
 {
 	if (!BackendService)
 	{
-		UE_LOG(LogIviTunerGeneralOLinkSource, Error, TEXT("No backend service set - please specify a service in the adapter IviTunerGeneralOLinkAdapter which implements the IviTunerGeneral interface"));
+		UE_LOG(LogIviTunerPreferencesOLinkSource, Error, TEXT("No backend service set - please specify a service in the adapter IviTunerPreferencesOLinkAdapter which implements the IviTunerPreferences interface"));
 		return nlohmann::json();
 	}
 

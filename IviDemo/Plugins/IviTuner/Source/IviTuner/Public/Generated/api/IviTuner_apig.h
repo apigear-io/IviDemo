@@ -18,4 +18,4 @@ limitations under the License.
 
 #include "IviTunerTunerInterface.h"
 #include "IviTunerFavoritesInterface.h"
-#include "IviTunerGeneralInterface.h"
+#include "IviTunerPreferencesInterface.h"

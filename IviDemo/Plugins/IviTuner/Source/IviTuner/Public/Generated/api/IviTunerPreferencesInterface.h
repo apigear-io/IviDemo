@@ -19,40 +19,40 @@ limitations under the License.
 #include "Engine/LatentActionManager.h"
 #include "UObject/Interface.h"
 #include "IviTuner_data.h"
-#include "IviTunerGeneralInterface.generated.h"
+#include "IviTunerPreferencesInterface.generated.h"
 
 /**
- * Declaration for General
+ * Declaration for Preferences
  */
 // signal delegates
 // property delegates
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FIviTunerGeneralAutoScanIntervalChangedDelegate, int32, AutoScanInterval);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FIviTunerGeneralFavoritesSizeChangedDelegate, const FIviTunerGridSize&, FavoritesSize);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FIviTunerPreferencesAutoScanIntervalChangedDelegate, int32, AutoScanInterval);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FIviTunerPreferencesFavoritesSizeChangedDelegate, const FIviTunerGridSize&, FavoritesSize);
 
 /**
- * Class UIviTunerGeneralInterfaceSignals
+ * Class UIviTunerPreferencesInterfaceSignals
  * Contains delegates for properties and signals
  * this is needed since we cannot declare delegates on an UInterface
  */
 UCLASS(BlueprintType)
-class IVITUNER_API UIviTunerGeneralSignals : public UObject
+class IVITUNER_API UIviTunerPreferencesSignals : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|General|Signals", DisplayName = "Property AutoScanInterval Changed")
-	FIviTunerGeneralAutoScanIntervalChangedDelegate OnAutoScanIntervalChanged;
+	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|Preferences|Signals", DisplayName = "Property AutoScanInterval Changed")
+	FIviTunerPreferencesAutoScanIntervalChangedDelegate OnAutoScanIntervalChanged;
 	/// C++ wrapper for BP functions to safely call OnAutoScanIntervalChanged.Broadcast
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General|Signals", DisplayName = "Broadcast Property AutoScanInterval Changed")
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Preferences|Signals", DisplayName = "Broadcast Property AutoScanInterval Changed")
 	void BroadcastAutoScanIntervalChanged(UPARAM(DisplayName = "AutoScanInterval") int32 InAutoScanInterval)
 	{
 		OnAutoScanIntervalChanged.Broadcast(InAutoScanInterval);
 	}
 
-	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|General|Signals", DisplayName = "Property FavoritesSize Changed")
-	FIviTunerGeneralFavoritesSizeChangedDelegate OnFavoritesSizeChanged;
+	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|Preferences|Signals", DisplayName = "Property FavoritesSize Changed")
+	FIviTunerPreferencesFavoritesSizeChangedDelegate OnFavoritesSizeChanged;
 	/// C++ wrapper for BP functions to safely call OnFavoritesSizeChanged.Broadcast
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General|Signals", DisplayName = "Broadcast Property FavoritesSize Changed")
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Preferences|Signals", DisplayName = "Broadcast Property FavoritesSize Changed")
 	void BroadcastFavoritesSizeChanged(UPARAM(DisplayName = "FavoritesSize") const FIviTunerGridSize& InFavoritesSize)
 	{
 		OnFavoritesSizeChanged.Broadcast(InFavoritesSize);
@@ -60,18 +60,18 @@ public:
 };
 
 /**
- * Interface UIviTunerGeneralInterface only for Unreal Engine's reflection system
+ * Interface UIviTunerPreferencesInterface only for Unreal Engine's reflection system
  */
 UINTERFACE(Blueprintable, MinimalAPI)
-class UIviTunerGeneralInterface : public UInterface
+class UIviTunerPreferencesInterface : public UInterface
 {
 	GENERATED_BODY()
 };
 
 /**
- * Interface IIviTunerGeneralInterface
+ * Interface IIviTunerPreferencesInterface
  */
-class IVITUNER_API IIviTunerGeneralInterface
+class IVITUNER_API IIviTunerPreferencesInterface
 {
 	GENERATED_BODY()
 
@@ -79,23 +79,23 @@ public:
 	/// Provides access to the object which holds all the delegates
 	/// this is needed since we cannot declare delegates on an UInterface
 	/// @return object with signals for property state changes or standalone signals
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|General")
-	UIviTunerGeneralSignals* _GetSignals();
-	virtual UIviTunerGeneralSignals* _GetSignals_Implementation() = 0;
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Preferences")
+	UIviTunerPreferencesSignals* _GetSignals();
+	virtual UIviTunerPreferencesSignals* _GetSignals_Implementation() = 0;
 
 	// methods
 
 	// properties
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|General|Properties")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Preferences|Properties")
 	int32 GetAutoScanInterval() const;
 	virtual int32 GetAutoScanInterval_Implementation() const = 0;
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|General|Properties")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Preferences|Properties")
 	void SetAutoScanInterval(int32 InAutoScanInterval);
 	virtual void SetAutoScanInterval_Implementation(int32 InAutoScanInterval) = 0;
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|General|Properties")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Preferences|Properties")
 	FIviTunerGridSize GetFavoritesSize() const;
 	virtual FIviTunerGridSize GetFavoritesSize_Implementation() const = 0;
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|General|Properties")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ApiGear|IviTuner|Preferences|Properties")
 	void SetFavoritesSize(const FIviTunerGridSize& InFavoritesSize);
 	virtual void SetFavoritesSize_Implementation(const FIviTunerGridSize& InFavoritesSize) = 0;
 };

@@ -28,11 +28,11 @@ public:
 	static void trace_callClearAll();
 };
 
-class IviTunerGeneralTracer
+class IviTunerPreferencesTracer
 {
 public:
-	IviTunerGeneralTracer();
-	static void capture_state(UObject* Object, IIviTunerGeneralInterface* obj);
+	IviTunerPreferencesTracer();
+	static void capture_state(UObject* Object, IIviTunerPreferencesInterface* obj);
 	static void trace_callSetAutoScanInterval(int32 InAutoScanInterval);
 	static void trace_callSetFavoritesSize(const FIviTunerGridSize& InFavoritesSize);
 };

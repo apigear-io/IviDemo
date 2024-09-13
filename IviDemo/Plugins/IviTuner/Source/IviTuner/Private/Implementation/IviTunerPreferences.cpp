@@ -15,15 +15,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include "Implementation/IviTunerGeneral.h"
+#include "Implementation/IviTunerPreferences.h"
 
-UIviTunerGeneral::~UIviTunerGeneral() = default;
-int32 UIviTunerGeneral::GetAutoScanInterval_Implementation() const
+UIviTunerPreferences::~UIviTunerPreferences() = default;
+int32 UIviTunerPreferences::GetAutoScanInterval_Implementation() const
 {
 	return AutoScanInterval;
 }
 
-void UIviTunerGeneral::SetAutoScanInterval_Implementation(int32 InAutoScanInterval)
+void UIviTunerPreferences::SetAutoScanInterval_Implementation(int32 InAutoScanInterval)
 {
 	if (AutoScanInterval != InAutoScanInterval)
 	{
@@ -31,12 +31,12 @@ void UIviTunerGeneral::SetAutoScanInterval_Implementation(int32 InAutoScanInterv
 		Execute__GetSignals(this)->OnAutoScanIntervalChanged.Broadcast(AutoScanInterval);
 	}
 }
-FIviTunerGridSize UIviTunerGeneral::GetFavoritesSize_Implementation() const
+FIviTunerGridSize UIviTunerPreferences::GetFavoritesSize_Implementation() const
 {
 	return FavoritesSize;
 }
 
-void UIviTunerGeneral::SetFavoritesSize_Implementation(const FIviTunerGridSize& InFavoritesSize)
+void UIviTunerPreferences::SetFavoritesSize_Implementation(const FIviTunerGridSize& InFavoritesSize)
 {
 	if (FavoritesSize != InFavoritesSize)
 	{

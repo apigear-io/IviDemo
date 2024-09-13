@@ -23,8 +23,8 @@ limitations under the License.
 #include "Generated/OLink/IviTunerTunerOLinkClient.h"
 #include "Implementation/IviTunerFavorites.h"
 #include "Generated/OLink/IviTunerFavoritesOLinkClient.h"
-#include "Implementation/IviTunerGeneral.h"
-#include "Generated/OLink/IviTunerGeneralOLinkClient.h"
+#include "Implementation/IviTunerPreferences.h"
+#include "Generated/OLink/IviTunerPreferencesOLinkClient.h"
 #include "IviTunerSettings.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Engine/GameInstance.h"
@@ -258,109 +258,109 @@ TScriptInterface<IIviTunerFavoritesInterface> FIviTunerModuleFactory::createIIvi
 #endif
 
 #if (ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION < 27)
-TScriptInterface<IIviTunerGeneralInterface> createIviTunerGeneralOLink(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection)
+TScriptInterface<IIviTunerPreferencesInterface> createIviTunerPreferencesOLink(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection)
 {
 	if (IsIviTunerLogEnabled())
 	{
-		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerGeneralInterface: Using OLink service backend"));
+		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerPreferencesInterface: Using OLink service backend"));
 	}
 
-	UIviTunerGeneralOLinkClient* Instance = GameInstance->GetSubsystem<UIviTunerGeneralOLinkClient>(GameInstance);
+	UIviTunerPreferencesOLinkClient* Instance = GameInstance->GetSubsystem<UIviTunerPreferencesOLinkClient>(GameInstance);
 	if (!Instance)
 	{
-		Collection.InitializeDependency(UIviTunerGeneralOLinkClient::StaticClass());
-		Instance = GameInstance->GetSubsystem<UIviTunerGeneralOLinkClient>(GameInstance);
+		Collection.InitializeDependency(UIviTunerPreferencesOLinkClient::StaticClass());
+		Instance = GameInstance->GetSubsystem<UIviTunerPreferencesOLinkClient>(GameInstance);
 	}
 
 	return Instance;
 }
 
-TScriptInterface<IIviTunerGeneralInterface> createIviTunerGeneral(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection)
+TScriptInterface<IIviTunerPreferencesInterface> createIviTunerPreferences(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection)
 {
 	if (IsIviTunerLogEnabled())
 	{
-		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerGeneralInterface: Using local service backend"));
+		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerPreferencesInterface: Using local service backend"));
 	}
 
-	UIviTunerGeneral* Instance = GameInstance->GetSubsystem<UIviTunerGeneral>(GameInstance);
+	UIviTunerPreferences* Instance = GameInstance->GetSubsystem<UIviTunerPreferences>(GameInstance);
 	if (!Instance)
 	{
-		Collection.InitializeDependency(UIviTunerGeneral::StaticClass());
-		Instance = GameInstance->GetSubsystem<UIviTunerGeneral>(GameInstance);
+		Collection.InitializeDependency(UIviTunerPreferences::StaticClass());
+		Instance = GameInstance->GetSubsystem<UIviTunerPreferences>(GameInstance);
 	}
 
 	return Instance;
 }
 
-TScriptInterface<IIviTunerGeneralInterface> FIviTunerModuleFactory::createIIviTunerGeneralInterface(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection)
+TScriptInterface<IIviTunerPreferencesInterface> FIviTunerModuleFactory::createIIviTunerPreferencesInterface(UGameInstance* GameInstance, FSubsystemCollectionBase& Collection)
 {
 	UIviTunerSettings* IviTunerSettings = GetMutableDefault<UIviTunerSettings>();
 
 	if (IviTunerSettings->TracerServiceIdentifier == IviTunerLocalBackendIdentifier)
 	{
-		return createIviTunerGeneral(GameInstance, Collection);
+		return createIviTunerPreferences(GameInstance, Collection);
 	}
 
 	UApiGearSettings* ApiGearSettings = GetMutableDefault<UApiGearSettings>();
 	FApiGearConnectionSetting* ConnectionSetting = ApiGearSettings->Connections.Find(IviTunerSettings->TracerServiceIdentifier);
 
 	// Other protocols not supported. To support it edit templates:
-	// add protocol handler class for this interface like createIviTunerGeneralOLink and other necessary infrastructure
+	// add protocol handler class for this interface like createIviTunerPreferencesOLink and other necessary infrastructure
 	// extend this function in templates to handle protocol of your choice
 	if (ConnectionSetting && ConnectionSetting->ProtocolIdentifier == ApiGearOLinkProtocolIdentifier)
 	{
-		return createIviTunerGeneralOLink(GameInstance, Collection);
+		return createIviTunerPreferencesOLink(GameInstance, Collection);
 	}
 
 	// fallback to local implementation
-	return createIviTunerGeneral(GameInstance, Collection);
+	return createIviTunerPreferences(GameInstance, Collection);
 }
 
 #else
 
-TScriptInterface<IIviTunerGeneralInterface> createIviTunerGeneralOLink(FSubsystemCollectionBase& Collection)
+TScriptInterface<IIviTunerPreferencesInterface> createIviTunerPreferencesOLink(FSubsystemCollectionBase& Collection)
 {
 	if (IsIviTunerLogEnabled())
 	{
-		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerGeneralInterface: Using OLink service backend"));
+		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerPreferencesInterface: Using OLink service backend"));
 	}
 
-	UIviTunerGeneralOLinkClient* Instance = Cast<UIviTunerGeneralOLinkClient>(Collection.InitializeDependency(UIviTunerGeneralOLinkClient::StaticClass()));
+	UIviTunerPreferencesOLinkClient* Instance = Cast<UIviTunerPreferencesOLinkClient>(Collection.InitializeDependency(UIviTunerPreferencesOLinkClient::StaticClass()));
 	return Instance;
 }
 
-TScriptInterface<IIviTunerGeneralInterface> createIviTunerGeneral(FSubsystemCollectionBase& Collection)
+TScriptInterface<IIviTunerPreferencesInterface> createIviTunerPreferences(FSubsystemCollectionBase& Collection)
 {
 	if (IsIviTunerLogEnabled())
 	{
-		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerGeneralInterface: Using local service backend"));
+		UE_LOG(LogFIviTunerModuleFactory, Log, TEXT("createIIviTunerPreferencesInterface: Using local service backend"));
 	}
 
-	UIviTunerGeneral* Instance = Cast<UIviTunerGeneral>(Collection.InitializeDependency(UIviTunerGeneral::StaticClass()));
+	UIviTunerPreferences* Instance = Cast<UIviTunerPreferences>(Collection.InitializeDependency(UIviTunerPreferences::StaticClass()));
 	return Instance;
 }
 
-TScriptInterface<IIviTunerGeneralInterface> FIviTunerModuleFactory::createIIviTunerGeneralInterface(FSubsystemCollectionBase& Collection)
+TScriptInterface<IIviTunerPreferencesInterface> FIviTunerModuleFactory::createIIviTunerPreferencesInterface(FSubsystemCollectionBase& Collection)
 {
 	UIviTunerSettings* IviTunerSettings = GetMutableDefault<UIviTunerSettings>();
 
 	if (IviTunerSettings->TracerServiceIdentifier == IviTunerLocalBackendIdentifier)
 	{
-		return createIviTunerGeneral(Collection);
+		return createIviTunerPreferences(Collection);
 	}
 
 	UApiGearSettings* ApiGearSettings = GetMutableDefault<UApiGearSettings>();
 	FApiGearConnectionSetting* ConnectionSetting = ApiGearSettings->Connections.Find(IviTunerSettings->TracerServiceIdentifier);
 
 	// Other protocols not supported. To support it edit templates:
-	// add protocol handler class for this interface like createIviTunerGeneralOLink and other necessary infrastructure
+	// add protocol handler class for this interface like createIviTunerPreferencesOLink and other necessary infrastructure
 	// extend this function in templates to handle protocol of your choice
 	if (ConnectionSetting && ConnectionSetting->ProtocolIdentifier == ApiGearOLinkProtocolIdentifier)
 	{
-		return createIviTunerGeneralOLink(Collection);
+		return createIviTunerPreferencesOLink(Collection);
 	}
 
 	// fallback to local implementation
-	return createIviTunerGeneral(Collection);
+	return createIviTunerPreferences(Collection);
 }
 #endif

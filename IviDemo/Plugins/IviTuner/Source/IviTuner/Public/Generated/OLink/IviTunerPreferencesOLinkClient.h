@@ -16,7 +16,7 @@ limitations under the License.
 */
 #pragma once
 
-#include "AbstractIviTunerGeneral.h"
+#include "AbstractIviTunerPreferences.h"
 THIRD_PARTY_INCLUDES_START
 #include "olink/clientnode.h"
 THIRD_PARTY_INCLUDES_END
@@ -29,21 +29,21 @@ THIRD_PARTY_INCLUDES_END
 #else
 #include "Templates/PimplPtr.h"
 #endif
-#include "IviTunerGeneralOLinkClient.generated.h"
+#include "IviTunerPreferencesOLinkClient.generated.h"
 
-struct IviTunerGeneralPropertiesData;
-DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerGeneralOLinkClient, Log, All);
+struct IviTunerPreferencesPropertiesData;
+DECLARE_LOG_CATEGORY_EXTERN(LogIviTunerPreferencesOLinkClient, Log, All);
 
 UCLASS(NotBlueprintable, BlueprintType)
-class IVITUNER_API UIviTunerGeneralOLinkClient : public UAbstractIviTunerGeneral
+class IVITUNER_API UIviTunerPreferencesOLinkClient : public UAbstractIviTunerPreferences
 {
 	GENERATED_BODY()
 public:
-	explicit UIviTunerGeneralOLinkClient();
+	explicit UIviTunerPreferencesOLinkClient();
 
-	// only needed in 4.25 to use TUniquePtr<IviTunerGeneralPropertiesData>
-	UIviTunerGeneralOLinkClient(FVTableHelper& Helper);
-	virtual ~UIviTunerGeneralOLinkClient();
+	// only needed in 4.25 to use TUniquePtr<IviTunerPreferencesPropertiesData>
+	UIviTunerPreferencesOLinkClient(FVTableHelper& Helper);
+	virtual ~UIviTunerPreferencesOLinkClient();
 
 	// subsystem
 	void Initialize(FSubsystemCollectionBase& Collection) override;
@@ -58,21 +58,21 @@ public:
 
 	// operations
 
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General")
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Preferences")
 	void UseConnection(TScriptInterface<class IApiGearConnection> InConnection);
 
 	/**
 	 * Used when the interface client changes subscription status:
 	 * either is linked(ready to use) with server side (true) or it is in unlinked state (false).
 	 */
-	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|General|Remote", DisplayName = "Subscription Status Changed")
+	UPROPERTY(BlueprintAssignable, Category = "ApiGear|IviTuner|Preferences|Remote", DisplayName = "Subscription Status Changed")
 	FApiGearRemoteApiSubscriptionStatusChangedDelegate _SubscriptionStatusChanged;
 
 	/**
 	 * Informs about the subscription state of the interface client.
 	 * @return true if the client is subscribed (plugged in the network) and ready to send and receive messages or false if the server cannot be reached.
 	 */
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General|Remote")
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Preferences|Remote")
 	bool _IsSubscribed() const;
 
 private:
@@ -82,9 +82,9 @@ private:
 
 	// member variable to store the last sent data
 #if (ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION < 27)
-	TUniquePtr<IviTunerGeneralPropertiesData> _SentData;
+	TUniquePtr<IviTunerPreferencesPropertiesData> _SentData;
 #else
-	TPimplPtr<IviTunerGeneralPropertiesData> _SentData;
+	TPimplPtr<IviTunerPreferencesPropertiesData> _SentData;
 #endif
 	TScriptInterface<class IApiGearConnection> Connection;
 };

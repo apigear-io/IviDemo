@@ -18,15 +18,15 @@ limitations under the License.
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Generated/api/AbstractIviTunerGeneral.h"
-#include "IviTunerGeneral.generated.h"
+#include "Generated/api/AbstractIviTunerPreferences.h"
+#include "IviTunerPreferences.generated.h"
 
 UCLASS(BlueprintType)
-class IVITUNER_API UIviTunerGeneral : public UAbstractIviTunerGeneral
+class IVITUNER_API UIviTunerPreferences : public UAbstractIviTunerPreferences
 {
 	GENERATED_BODY()
 public:
-	virtual ~UIviTunerGeneral();
+	virtual ~UIviTunerPreferences();
 
 	// properties
 	int32 GetAutoScanInterval_Implementation() const override;

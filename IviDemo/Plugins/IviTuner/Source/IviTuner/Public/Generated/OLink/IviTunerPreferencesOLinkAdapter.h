@@ -16,44 +16,44 @@ limitations under the License.
 */
 #pragma once
 
-#include "IviTunerGeneralInterface.h"
+#include "IviTunerPreferencesInterface.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "UnrealOLinkHost.h"
-#include "IviTunerGeneralOLinkAdapter.generated.h"
+#include "IviTunerPreferencesOLinkAdapter.generated.h"
 
 /// @brief handles the adaption between the service implementation and the OLink protocol
-/// takes an object of the type IIviTunerGeneralInterface
-/// and holds the corresponding IviTunerGeneralOLinkSource OLink source object
+/// takes an object of the type IIviTunerPreferencesInterface
+/// and holds the corresponding IviTunerPreferencesOLinkSource OLink source object
 UCLASS(BlueprintType)
-class IVITUNER_API UIviTunerGeneralOLinkAdapter : public UGameInstanceSubsystem
+class IVITUNER_API UIviTunerPreferencesOLinkAdapter : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 public:
-	explicit UIviTunerGeneralOLinkAdapter();
-	virtual ~UIviTunerGeneralOLinkAdapter() = default;
+	explicit UIviTunerPreferencesOLinkAdapter();
+	virtual ~UIviTunerPreferencesOLinkAdapter() = default;
 
 	// subsystem
 	void Initialize(FSubsystemCollectionBase& Collection) override;
 	void Deinitialize() override;
 
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General")
-	void setBackendService(TScriptInterface<IIviTunerGeneralInterface> InService);
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Preferences")
+	void setBackendService(TScriptInterface<IIviTunerPreferencesInterface> InService);
 
-	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|General")
+	UFUNCTION(BlueprintCallable, Category = "ApiGear|IviTuner|Preferences")
 	void setOLinkHost(TSoftObjectPtr<UUnrealOLinkHost> InHost);
 
 private:
 	// signals
 
-	UFUNCTION(Category = "ApiGear|IviTuner|General", BlueprintInternalUseOnly)
+	UFUNCTION(Category = "ApiGear|IviTuner|Preferences", BlueprintInternalUseOnly)
 	void OnAutoScanIntervalChanged(int32 AutoScanInterval);
 
-	UFUNCTION(Category = "ApiGear|IviTuner|General", BlueprintInternalUseOnly)
+	UFUNCTION(Category = "ApiGear|IviTuner|Preferences", BlueprintInternalUseOnly)
 	void OnFavoritesSizeChanged(const FIviTunerGridSize& FavoritesSize);
 
 	/** Holds the service backend, can be exchanged with different implementation during runtime */
-	UPROPERTY(VisibleAnywhere, Category = "ApiGear|IviTuner|General")
-	TScriptInterface<IIviTunerGeneralInterface> BackendService;
+	UPROPERTY(VisibleAnywhere, Category = "ApiGear|IviTuner|Preferences")
+	TScriptInterface<IIviTunerPreferencesInterface> BackendService;
 
 	/** Holds the registry */
 	TSharedPtr<ApiGear::ObjectLink::RemoteRegistry> Registry;
@@ -62,5 +62,5 @@ private:
 	holds the olink source interface implementation
 	must be std::shared_ptr since it is expected by the olink protocol implementation
 	*/
-	std::shared_ptr<class IviTunerGeneralOLinkSource> Source;
+	std::shared_ptr<class IviTunerPreferencesOLinkSource> Source;
 };

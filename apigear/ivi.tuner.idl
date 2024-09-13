@@ -38,7 +38,7 @@ struct GridSize {
     columns: int
 }
 
-interface General {
+interface Preferences {
     autoScanInterval: int
     favoritesSize: GridSize
 }
