@@ -17,6 +17,8 @@ limitations under the License.
 
 #include "Implementation/IviTunerFavorites.h"
 
+#include "Generated/IviTunerLogCategories.h"
+
 UIviTunerFavorites::UIviTunerFavorites()
 {
 	InitData();
@@ -40,11 +42,11 @@ void UIviTunerFavorites::SetStations_Implementation(const TArray<FIviTunerStatio
 
 void UIviTunerFavorites::SetStation_Implementation(int32 Index, const FIviTunerStation& Station)
 {
-	(void)Index;
-	(void)Station;
+	UE_LOG(LogIviTuner, Warning, TEXT("SetStation_Implementation: index %d"), Index);
 	// check if index is valid
 	if (Index < 0 || Index >= Stations.Num())
 	{
+		UE_LOG(LogIviTuner, Warning, TEXT("SetStation_Implementation: Station index %d is out of bounds"), Index);
 		return;
 	}
 	// set station
