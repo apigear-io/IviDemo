@@ -2,6 +2,8 @@
 
 This repository contains Unreal Engine projects that demonstrate how to integrate an ivi backend into the Unreal Engine using ApiGear.
 
+![IviDemo Screenshot](ivituner.png)
+
 Folder/Projects
 
 - `apigear` Contains the ivi.tuner.idl file that describes the ivi backend.
