@@ -1,10 +1,23 @@
 # Ivi Demo for ApiGear
 
-This repository contains Unreal Engine projects that demonstrate how to integrate the ivi backend into the Unreal Engine using ApiGear.
+This repository contains Unreal Engine projects that demonstrate how to integrate an ivi backend into the Unreal Engine using ApiGear.
 
+Folder/Projects
+
+- `apigear` Contains the ivi.tuner.idl file that describes the ivi backend.
 - `IviLab`, An almost completely empty project that will be used as a starting point for the ivi integration with a single button to scan for tuner stations.
 - `IviSol` A project that contains the ivi backend and a demonstration of the UMG UI for the lab.
 - `IviDemo` A more complete project that contains a fully functional ivi backend and a demonstration of the UMG UI. 
+
+
+## apigear
+
+The apigear folder contains the `ivi.tuner.idl` file that describes the ivi API surface. It is used by the ivi projects to generate the ivi backend code.
+The `*.solution.yaml` files are used by apigear to configure the ivi backend code generation. They are used with the apigear tool (see htps://apigear.io).
+
+In general you can use the `apigear generate solution <solution.yaml>` command to generate the ivi backend code. This would generate UE Plugin code into the defined output folder.
+
+Most generated files will be overwritten when you run the command again. But some files which are meant to be changed by the developer are not overwritten (e.g. all files inside the `Implementation` folder).
 
 ## IviLab
 
